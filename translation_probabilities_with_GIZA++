@@ -1,0 +1,26 @@
+mkdir ~/giza-pp-result
+mv -t ~/giza-pp-result javascript-source.txt javascript-target java-source.txt java-target
+
+cd ~/giza-pp-master
+make
+
+cd ~/giza-pp-master/GIZA++-v2
+./plain2snt.out ~/giza-pp-result/javascript-source.txt ~/giza-pp-result/javascript-target.txt
+
+cd ~/giza-pp-master/mkcls-v2
+./mkcls -p~/giza-pp-result/javascript-source.txt -V~/giza-pp-result/javascript-source.vcb.classes
+./mkcls -p~/giza-pp-result/javascript-target.txt -V~/giza-pp-result/javascript-target.vcb.classes
+
+cd ~/giza-pp-master/GIZA++-v2
+./GIZA++ -S ~/giza-pp-result/javascript-source.vcb -T ~/giza-pp-result/javascript-target.vcb -C ~/giza-pp-result/javascript-source_javascript-target.snt -o javascript -outputpath ~/giza-pp-result/
+
+
+cd ~/giza-pp-master/GIZA++-v2
+./plain2snt.out ~/giza-pp-result/java-source.txt ~/giza-pp-result/java-target.txt
+
+cd ~/giza-pp-master/mkcls-v2
+./mkcls -p~/giza-pp-result/java-source.txt -V~/giza-pp-result/java-source.vcb.classes
+./mkcls -p~/giza-pp-result/java-target.txt -V~/giza-pp-result/java-target.vcb.classes
+
+cd ~/giza-pp-master/GIZA++-v2
+./GIZA++ -S ~/giza-pp-result/java-source.vcb -T ~/giza-pp-result/java-target.vcb -C ~/giza-pp-result/java-source_java-target.snt -o java -outputpath ~/giza-pp-result/
